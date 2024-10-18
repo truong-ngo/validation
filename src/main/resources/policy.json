@@ -1,0 +1,60 @@
+{
+    "objectName": "person",
+    "fieldConfigurations": [
+        {
+            "fieldName": "name",
+            "fieldType": "STRING",
+            "rules": [
+                {
+                    "simpleType": "required"
+                },
+                {
+                    "operation": "MIN_LENGTH",
+                    "comparedValues": [5],
+                    "message": "Must have at least 5 character"
+                },
+                {
+                    "operation": "CONTAINS",
+                    "comparedValues": ["a"],
+                    "message": "Must contain 'a' character"
+                }
+            ]
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "OBJECT",
+            "rules": [
+                {
+                    "innerConfig": {
+                        "objectName": "address",
+                        "fieldConfigurations": [
+                            {
+                                "fieldName": "street",
+                                "fieldType": "STRING",
+                                "rules": [
+                                    {
+                                        "simpleType": "required"
+                                    },
+                                    {
+                                        "operation": "MIN_LENGTH",
+                                        "comparedValues": [3],
+                                        "message": "Must have at least 3 character"
+                                    }
+                                ]
+                            },
+                            {
+                                "fieldName": "city",
+                                "fieldType": "STRING",
+                                "rules": [
+                                    {
+                                        "simpleType": "required"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
