@@ -6,7 +6,9 @@ import lombok.Getter;
 public enum Operation {
 
     EQUAL("EQUAL", FieldType.of(FieldType.STRING, FieldType.INTEGER, FieldType.DECIMAL, FieldType.BOOLEAN)),
+    NOT_EQUAL("EQUAL", FieldType.of(FieldType.STRING, FieldType.INTEGER, FieldType.DECIMAL, FieldType.BOOLEAN)),
     EQUAL_IGNORE_CASE("EQUAL_IGNORE_CASE", FieldType.of(FieldType.STRING)),
+    NOT_EQUAL_IGNORE_CASE("EQUAL_IGNORE_CASE", FieldType.of(FieldType.STRING)),
     GREATER("GREATER", FieldType.of(FieldType.INTEGER, FieldType.DECIMAL)),
     GREATER_EQUAL("GREATER_EQUAL", FieldType.of(FieldType.INTEGER, FieldType.DECIMAL)),
     LESSER("LESSER", FieldType.of(FieldType.INTEGER, FieldType.DECIMAL)),

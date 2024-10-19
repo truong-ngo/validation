@@ -22,7 +22,9 @@ public class OperationEvaluators {
     public static boolean execute(Operation operation, Object operand, List<Object> arguments) {
         return switch (operation) {
             case EQUAL -> equal.execute(operand, arguments);
+            case NOT_EQUAL -> notEqual.execute(operand, arguments);
             case EQUAL_IGNORE_CASE -> equalIgnoreCase.execute(operand, arguments);
+            case NOT_EQUAL_IGNORE_CASE -> notEqualIgnoreCase.execute(operand, arguments);
             case GREATER -> greater.execute(operand, arguments);
             case GREATER_EQUAL -> greaterEqual.execute(operand, arguments);
             case LESSER -> lesser.execute(operand, arguments);
@@ -39,7 +41,7 @@ public class OperationEvaluators {
     }
 
     /**
-     * Equal operation executor
+     * Equal operation evaluator
      * */
     public static OperationEvaluator equal = (operand, arguments) -> {
         checkSupportedType(FieldType.ofValue(operand), Operation.EQUAL);
@@ -60,19 +62,62 @@ public class OperationEvaluators {
             BigDecimal compareBigDecimal = new BigDecimal(String.valueOf(comparedValue));
             return bigDecimal.equals(compareBigDecimal);
         }
+        if (FieldType.isDate(fieldType)) {
+
+        }
         Boolean booleanValue = (Boolean) operand;
         Boolean compareBoolean = (Boolean) comparedValue;
         return booleanValue.equals(compareBoolean);
     };
 
     /**
-     * Equal ignore case operation executor
+     * Not equal operation evaluator
+     * */
+    public static OperationEvaluator notEqual = (operand, arguments) -> {
+        checkSupportedType(FieldType.ofValue(operand), Operation.NOT_EQUAL);
+        Object comparedValue = arguments.get(0);
+        FieldType fieldType = FieldType.ofValue(operand);
+        if (FieldType.isString(fieldType)) {
+            String string = (String) operand;
+            String compareString = (String) comparedValue;
+            return !string.equals(compareString);
+        }
+        if (FieldType.isInteger(fieldType)) {
+            BigInteger integer = new BigInteger(String.valueOf(operand));
+            BigInteger compareInteger = new BigInteger(String.valueOf(comparedValue));
+            return !integer.equals(compareInteger);
+        }
+        if (FieldType.isDecimal(fieldType)) {
+            BigDecimal bigDecimal = new BigDecimal(String.valueOf(operand));
+            BigDecimal compareBigDecimal = new BigDecimal(String.valueOf(comparedValue));
+            return !bigDecimal.equals(compareBigDecimal);
+        }
+        if (FieldType.isDate(fieldType)) {
+
+        }
+        Boolean booleanValue = (Boolean) operand;
+        Boolean compareBoolean = (Boolean) comparedValue;
+        return !booleanValue.equals(compareBoolean);
+    };
+
+    /**
+     * Equal ignore case operation evaluator
      * */
     public static OperationEvaluator equalIgnoreCase = (operand, arguments) -> {
         checkSupportedType(FieldType.ofValue(operand), Operation.EQUAL_IGNORE_CASE);
         String string = (String) operand;
         String compareString = (String) arguments.get(0);
         return string.equalsIgnoreCase(compareString);
+    };
+
+    /**
+     * Not equal ignore case operation evaluator
+     * */
+    public static OperationEvaluator notEqualIgnoreCase = (operand, arguments) -> {
+        checkSupportedType(FieldType.ofValue(operand), Operation.EQUAL_IGNORE_CASE);
+        String string = (String) operand;
+        String compareString = (String) arguments.get(0);
+        return !string.equalsIgnoreCase(compareString);
     };
 
     /**

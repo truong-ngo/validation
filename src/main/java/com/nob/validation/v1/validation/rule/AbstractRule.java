@@ -39,7 +39,7 @@ public abstract class AbstractRule implements Rule {
      * */
     @Override
     public Object getFieldValue(String fieldName, Object context) {
-        Field field = Utils.getField(fieldName, context);
+        Field field = Utils.propertyOf(fieldName, context);
         if (Objects.isNull(field)) throw new ValidationException("Field: " + fieldName + " not found!");
         field.setAccessible(true);
         try {
